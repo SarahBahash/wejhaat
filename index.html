@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h2>Chatbot بسيط</h2>
+<h2>Chatbot سياحي</h2>
 
 <input id="msg" placeholder="اكتب طلبك هنا">
 <button onclick="handle()">إرسال</button>
@@ -14,6 +14,14 @@
 <ul id="result"></ul>
 
 <script>
+
+function detectType(text) {
+  if (text.includes("وقت") || text.includes("متى") || text.includes("أفضل وقت")) {
+    return "time";
+  }
+  return "place";
+}
+
 function classify(text) {
   if (text.includes("بحر")) return "1";
   else if (text.includes("جبل") || text.includes("جبال")) return "2";
@@ -22,43 +30,71 @@ function classify(text) {
   else return "0";
 }
 
-function recommend(choice) {
-  const data = {
-    "1": [
-      {name: "جزر فرسان", time: "أكتوبر — مارس"},
-      {name: "جزر أملج", time: "أكتوبر — مايو"},
-      {name: "كورنيش جدة", time: "نوفمبر — مارس"}
-    ],
-    "2": [
-      {name: "جبل السودة", time: "صيفاً"},
-      {name: "حافة العالم", time: "أكتوبر — أبريل"}
-    ],
-    "3": [
-      {name: "غابات رغدان", time: "طوال السنة"},
-      {name: "وادي لجب", time: "شتاءً وربيعاً"}
-    ],
-    "4": [
-      {name: "العلا", time: "أكتوبر — أبريل"}
-    ]
-  };
-
-  return data[choice] || [{name: "لم أفهم طلبك", time: "-"}];
+function detectPlace(text) {
+  if (text.includes("جدة")) return "jeddah";
+  else if (text.includes("العلا")) return "ula";
+  else if (text.includes("فرسان")) return "farasan";
+  else if (text.includes("أملج")) return "umlaj";
+  else return null;
 }
+
+const data = {
+  "1": ["جزر فرسان", "جزر أملج", "كورنيش جدة"],
+  "2": ["جبل السودة", "حافة العالم"],
+  "3": ["غابات رغدان", "وادي لجب"],
+  "4": ["العلا"]
+};
+
+const placeData = {
+  "jeddah": "أفضل وقت لزيارة جدة من نوفمبر إلى مارس",
+  "ula": "أفضل وقت لزيارة العلا من أكتوبر إلى أبريل",
+  "farasan": "أفضل وقت لزيارة جزر فرسان من أكتوبر إلى مارس",
+  "umlaj": "أفضل وقت لزيارة أملج من أكتوبر إلى مايو"
+};
 
 function handle() {
   const input = document.getElementById("msg").value;
+  const type = detectType(input);
   const choice = classify(input);
-  const results = recommend(choice);
+  const place = detectPlace(input);
 
   const list = document.getElementById("result");
   list.innerHTML = "";
 
-  results.forEach(place => {
+  if (choice === "0" && !place) {
     const li = document.createElement("li");
-    li.innerText = place.name + " - " + place.time;
+    li.innerText = "عذرًا، لم أفهم طلبك بشكل واضح. يرجى التوضيح (مثل: بحر، جبل، جدة، وقت الزيارة).";
     list.appendChild(li);
-  });
+    return;
+  }
+
+  if (type === "time" && place) {
+    const li = document.createElement("li");
+    li.innerText = placeData[place];
+    list.appendChild(li);
+    return;
+  }
+
+  if (type === "time" && !place) {
+    const li = document.createElement("li");
+    li.innerText = "يرجى تحديد المكان لمعرفة أفضل وقت للزيارة (مثل: جدة، العلا).";
+    list.appendChild(li);
+    return;
+  }
+
+  if (type === "place" && choice !== "0") {
+    const title = document.createElement("li");
+    title.innerText = "بكل سرور، هذه قائمة بأفضل الأماكن التي يمكنك زيارتها:";
+    list.appendChild(title);
+
+    data[choice].forEach(place => {
+      const li = document.createElement("li");
+      li.innerText = "• " + place;
+      list.appendChild(li);
+    });
+  }
 }
+
 </script>
 
 </body>

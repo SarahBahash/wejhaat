@@ -7,796 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --sand-50:  #faf6ee;
-    --sand-100: #f2e9d4;
-    --sand-200: #e6d2a8;
-    --sand-300: #d4b072;
-    --clay:     #b87333;
-    --terra:    #8a3a1f;
-    --deep:     #2b1a10;
-    --moss:     #4a6b3a;
-    --olive:    #6b7d4a;
-    --jaz-purple: #6b4a8a;
-    --sea:      #2e5b6b;
-    --gold:     #c9962b;
-    --ink:      #1a0f08;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Tajawal', sans-serif;
-    background: var(--sand-50);
-    color: var(--ink);
-    overflow-x: hidden;
-    line-height: 1.7;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: multiply;
-  }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed;
-    top: 0; right: 0; left: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(250, 246, 238, 0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(184, 115, 51, 0.15);
-    transition: all 0.4s ease;
-  }
-
-  .logo {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--terra);
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .logo-mark {
-    width: 36px; height: 36px;
-    background: var(--terra);
-    border-radius: 50%;
-    position: relative;
-    display: inline-block;
-  }
-  .logo-mark::before {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    background: var(--sand-50);
-    border-radius: 50%;
-  }
-  .logo-mark::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 10px; height: 10px;
-    background: var(--gold);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--deep);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    position: relative;
-    padding: 0.3rem 0;
-    transition: color 0.3s;
-  }
-
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 0; height: 2px;
-    background: var(--terra);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover { color: var(--terra); }
-  .nav-links a:hover::after { width: 100%; }
-
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 6rem 3rem 3rem;
-    background:
-      radial-gradient(ellipse at top right, rgba(201, 150, 43, 0.15), transparent 60%),
-      radial-gradient(ellipse at bottom left, rgba(74, 107, 58, 0.12), transparent 50%),
-      linear-gradient(180deg, var(--sand-50) 0%, var(--sand-100) 100%);
-    overflow: hidden;
-  }
-
-  .hero-decor {
-    position: absolute;
-    bottom: 0; right: 0; left: 0;
-    width: 100%;
-    height: 45%;
-    pointer-events: none;
-    opacity: 0.55;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    width: 100%;
-  }
-
-  .hero-text { animation: fadeUp 1.2s ease both; }
-  .hero-text .eyebrow {
-    display: inline-block;
-    font-family: 'Amiri', serif;
-    font-style: italic;
-    color: var(--clay);
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    padding: 0.4rem 1.2rem;
-    border: 1px solid var(--clay);
-    border-radius: 30px;
-    letter-spacing: 1px;
-  }
-
-  .hero-text h1 {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
-    line-height: 1.05;
-    color: var(--ink);
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
-  }
-
-  .hero-text h1 .accent {
-    color: var(--terra);
-    font-style: italic;
-    font-family: 'Amiri', serif;
-    display: inline-block;
-    transform: rotate(-2deg);
-  }
-
-  .hero-text p {
-    font-size: 1.2rem;
-    color: var(--deep);
-    opacity: 0.8;
-    max-width: 520px;
-    margin-bottom: 2rem;
-  }
-
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    background: var(--terra);
-    color: var(--sand-50);
-    padding: 1.1rem 2.2rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.4s cubic-bezier(.4,0,.2,1);
-    box-shadow: 0 10px 30px rgba(138, 58, 31, 0.3);
-  }
-  .hero-cta:hover {
-    background: var(--deep);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(138, 58, 31, 0.4);
-  }
-  .hero-cta span { transition: transform 0.3s; display: inline-block; }
-  .hero-cta:hover span { transform: translateX(-5px); }
-
-  .hero-card {
-    position: relative;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(184, 115, 51, 0.2);
-    border-radius: 2rem;
-    padding: 2.5rem;
-    animation: fadeUp 1.2s 0.3s ease both;
-  }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem 2rem;
-  }
-  .stat-item .num {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: 2.8rem;
-    color: var(--terra);
-    font-weight: 700;
-    line-height: 1;
-  }
-  .stat-item .label {
-    font-size: 0.95rem;
-    color: var(--deep);
-    opacity: 0.7;
-    margin-top: 0.4rem;
-  }
-
-  /* ===== REGIONS ===== */
-  .regions-section {
-    position: relative;
-    z-index: 2;
-    padding: 6rem 3rem;
-    background: var(--sand-50);
-  }
-
-  .section-header {
-    max-width: 1300px;
-    margin: 0 auto 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-
-  .section-title {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-    color: var(--ink);
-    line-height: 1.1;
-    max-width: 700px;
-  }
-  .section-title em {
-    font-family: 'Amiri', serif;
-    color: var(--terra);
-    font-weight: normal;
-  }
-
-  .section-sub {
-    color: var(--deep);
-    opacity: 0.7;
-    max-width: 380px;
-    font-size: 1.05rem;
-  }
-
-  .region-tabs {
-    max-width: 1300px;
-    margin: 0 auto 3rem;
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(184, 115, 51, 0.2);
-  }
-
-  .region-tab {
-    background: transparent;
-    border: 1.5px solid var(--sand-200);
-    color: var(--deep);
-    padding: 0.7rem 1.4rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-  }
-  .region-tab:hover { border-color: var(--clay); color: var(--terra); }
-  .region-tab.active { background: var(--ink); color: var(--sand-50); border-color: var(--ink); }
-
-  .places-grid {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .place-card {
-    background: var(--sand-50);
-    border: 1px solid rgba(184, 115, 51, 0.15);
-    border-radius: 1.5rem;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(.4,0,.2,1);
-    cursor: pointer;
-    position: relative;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards;
-  }
-
-  .place-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(43, 26, 16, 0.15);
-    border-color: var(--clay);
-  }
-
-  .place-image {
-    aspect-ratio: 4/3;
-    background: linear-gradient(135deg, var(--sand-200), var(--clay));
-    position: relative;
-    overflow: hidden;
-  }
-
-  .place-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s ease;
-  }
-  .place-card:hover .place-image img { transform: scale(1.08); }
-
-  .img-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.85);
-    font-size: 0.85rem;
-    text-align: center;
-    padding: 1rem;
-    font-family: 'Amiri', serif;
-    font-style: italic;
-    background: linear-gradient(135deg, var(--sand-300), var(--terra));
-  }
-
-  .place-tag {
-    position: absolute;
-    top: 1rem; right: 1rem;
-    background: rgba(250, 246, 238, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.3rem 0.9rem;
-    border-radius: 30px;
-    font-size: 0.78rem;
-    color: var(--terra);
-    font-weight: 600;
-    z-index: 2;
-  }
-
-  .place-info { padding: 1.5rem; }
-
-  .place-info .region-label {
-    color: var(--clay);
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .place-info .region-label::before {
-    content: '';
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: var(--clay);
-    border-radius: 50%;
-  }
-
-  .place-info h3 {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 0.6rem;
-    color: var(--ink);
-  }
-
-  .place-info p {
-    color: var(--deep);
-    opacity: 0.75;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .place-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.2rem;
-    padding-top: 1.2rem;
-    border-top: 1px dashed rgba(184, 115, 51, 0.3);
-    font-size: 0.85rem;
-    color: var(--deep);
-    opacity: 0.7;
-  }
-
-  /* ===== FEATURED ===== */
-  .featured {
-    background: var(--ink);
-    color: var(--sand-50);
-    padding: 7rem 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .featured::before {
-    content: '';
-    position: absolute;
-    top: -100px; left: -100px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, var(--terra), transparent 70%);
-    opacity: 0.4;
-  }
-  .featured::after {
-    content: '';
-    position: absolute;
-    bottom: -150px; right: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, var(--jaz-purple), transparent 70%);
-    opacity: 0.3;
-  }
-
-  .featured-inner {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-  }
-
-  .featured-image {
-    aspect-ratio: 4/5;
-    border-radius: 2rem;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--jaz-purple), var(--terra));
-    position: relative;
-  }
-
-  .featured-text .eyebrow {
-    color: var(--gold);
-    font-family: 'Amiri', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .featured-text h2 {
-    font-family: 'Reem Kufi', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.15;
-    margin-bottom: 1.5rem;
-  }
-  .featured-text h2 em {
-    font-family: 'Amiri', serif;
-    color: var(--gold);
-    font-weight: normal;
-  }
-
-  .featured-text p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 1.2rem; }
-
-  .featured-list { list-style: none; margin-top: 2rem; }
-  .featured-list li {
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(250, 246, 238, 0.15);
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-  }
-  .featured-list li span:first-child { color: var(--gold); font-family: 'Amiri', serif; }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--sand-100);
-    padding: 4rem 3rem 2rem;
-    border-top: 1px solid rgba(184, 115, 51, 0.2);
-  }
-
-  .footer-inner {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-  }
-
-  .footer-inner h4 {
-    font-family: 'Reem Kufi', sans-serif;
-    color: var(--terra);
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-
-  .footer-inner ul { list-style: none; }
-  .footer-inner ul li {
-    padding: 0.4rem 0;
-    color: var(--deep);
-    opacity: 0.75;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .footer-inner ul li:hover { color: var(--terra); opacity: 1; }
-
-  .footer-brand p {
-    color: var(--deep);
-    opacity: 0.7;
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    max-width: 320px;
-  }
-
-  .footer-bottom {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(184, 115, 51, 0.2);
-    text-align: center;
-    color: var(--deep);
-    opacity: 0.6;
-    font-size: 0.85rem;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .place-card:nth-child(1) { animation-delay: 0.05s; }
-  .place-card:nth-child(2) { animation-delay: 0.15s; }
-  .place-card:nth-child(3) { animation-delay: 0.25s; }
-  .place-card:nth-child(4) { animation-delay: 0.35s; }
-  .place-card:nth-child(5) { animation-delay: 0.45s; }
-  .place-card:nth-child(6) { animation-delay: 0.55s; }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
-    .regions-section, .featured { padding: 4rem 1.5rem; }
-    .featured-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
-  }
-
- 
-  /*CHATBOT */
-   
-  /* Toggle button */
-  .chat-toggle {
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-    width: 62px;
-    height: 62px;
-    background: var(--terra);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 30px rgba(138, 58, 31, 0.45);
-    transition: all 0.35s cubic-bezier(.4,0,.2,1);
-  }
-  .chat-toggle:hover {
-    background: var(--deep);
-    transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(138, 58, 31, 0.55);
-  }
-  .chat-toggle svg { transition: transform 0.35s ease; }
-  .chat-toggle.open svg.icon-chat { display: none; }
-  .chat-toggle.open svg.icon-close { display: block !important; }
-
-  /* Notification dot */
-  .chat-toggle::after {
-    content: '';
-    position: absolute;
-    top: 6px; left: 6px;
-    width: 14px; height: 14px;
-    background: var(--gold);
-    border-radius: 50%;
-    border: 2px solid var(--sand-50);
-    animation: pulse 2s infinite;
-  }
-  .chat-toggle.open::after { display: none; }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.3); opacity: 0.7; }
-  }
-
-  /* Chat window */
-  .chat-window {
-    position: fixed;
-    bottom: 6.5rem;
-    left: 2rem;
-    width: 360px;
-    max-height: 520px;
-    background: var(--sand-50);
-    border-radius: 1.8rem;
-    border: 1px solid rgba(184, 115, 51, 0.25);
-    box-shadow: 0 25px 60px rgba(43, 26, 16, 0.22);
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transform: translateY(20px) scale(0.95);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.35s cubic-bezier(.4,0,.2,1);
-  }
-  .chat-window.open {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  /* Chat header */
-  .chat-header {
-    background: var(--ink);
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .chat-header-avatar {
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--terra), var(--clay));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-  .chat-header-info h4 {
-    font-family: 'Reem Kufi', sans-serif;
-    color: var(--sand-50);
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  .chat-header-info span {
-    font-size: 0.78rem;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  .chat-header-info span::before {
-    content: '';
-    display: inline-block;
-    width: 7px; height: 7px;
-    background: #4ade80;
-    border-radius: 50%;
-  }
-
-  /* Messages area */
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--sand-200) transparent;
-  }
-
-  .chat-msg {
-    max-width: 85%;
-    padding: 0.75rem 1rem;
-    border-radius: 1.1rem;
-    font-size: 0.92rem;
-    line-height: 1.55;
-    animation: msgIn 0.3s ease;
-  }
-  @keyframes msgIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .chat-msg.bot {
-    background: rgba(184, 115, 51, 0.1);
-    border: 1px solid rgba(184, 115, 51, 0.2);
-    color: var(--ink);
-    border-bottom-right-radius: 0.3rem;
-    align-self: flex-start;
-  }
-  .chat-msg.user {
-    background: var(--terra);
-    color: var(--sand-50);
-    border-bottom-left-radius: 0.3rem;
-    align-self: flex-end;
-    text-align: right;
-  }
-
-  /* Suggestion chips */
-  .chat-suggestions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0 1.2rem 0.8rem;
-  }
-  .chip {
-    background: rgba(138, 58, 31, 0.08);
-    border: 1px solid rgba(138, 58, 31, 0.25);
-    color: var(--terra);
-    padding: 0.35rem 0.85rem;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-family: 'Tajawal', sans-serif;
-    transition: all 0.25s;
-  }
-  .chip:hover {
-    background: var(--terra);
-    color: var(--sand-50);
-    border-color: var(--terra);
-  }
-
-  /* Input row */
-  .chat-input-row {
-    padding: 0.9rem 1.2rem;
-    border-top: 1px solid rgba(184, 115, 51, 0.15);
-    display: flex;
-    gap: 0.7rem;
-    align-items: center;
-    background: rgba(255,255,255,0.5);
-  }
-  .chat-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 0.95rem;
-    color: var(--ink);
-    direction: rtl;
-  }
-  .chat-input::placeholder { color: var(--deep); opacity: 0.45; }
-  .chat-send {
-    width: 36px; height: 36px;
-    background: var(--terra);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-    flex-shrink: 0;
-  }
-  .chat-send:hover { background: var(--deep); transform: scale(1.1); }
-
-  @media (max-width: 500px) {
-    .chat-window { width: calc(100vw - 2rem); left: 1rem; }
-    .chat-toggle { bottom: 1.5rem; left: 1.5rem; }
-  }
-</style>
+<!-- Leaflet CSS for interactive map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<!-- App Styles -->
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="chatbot.css">
+<link rel="stylesheet" href="quiz.css">
 </head>
 <body>
 
@@ -805,12 +21,17 @@
     <span class="logo-mark"></span>
     <span>وِجهات</span>
   </div>
-  <ul class="nav-links">
-    <li><a href="#home">الرئيسية</a></li>
-    <li><a href="#regions">المناطق</a></li>
-    <li><a href="#featured">وجهة الموسم</a></li>
-    <li><a href="#about">عن المشروع</a></li>
-  </ul>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="#home">الرئيسية</a></li>
+      <li><a href="#regions">المناطق</a></li>
+      <li><a href="#map">الخريطة</a></li>
+      <li><a href="#sustainability">الاستدامة</a></li>
+      <li><a href="#featured">وجهة الموسم</a></li>
+      <li><a href="#quiz">الكويز</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="تغيير المظهر">🌙</button>
+  </div>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -820,7 +41,6 @@
     <path d="M0,260 Q300,180 600,240 T1100,230 T1440,260 L1440,400 L0,400 Z" fill="#b87333" opacity="0.55"/>
     <path d="M0,320 Q250,260 550,310 T1000,300 T1440,320 L1440,400 L0,400 Z" fill="#8a3a1f" opacity="0.7"/>
   </svg>
-
   <div class="hero-content">
     <div class="hero-text">
       <span class="eyebrow">رحلة بيئية في قلب الجزيرة</span>
@@ -831,25 +51,12 @@
         <span>←</span>
       </a>
     </div>
-
     <div class="hero-card">
       <div class="stat-grid">
-        <div class="stat-item">
-          <div class="num">١٣</div>
-          <div class="label">منطقة إدارية</div>
-        </div>
-        <div class="stat-item">
-          <div class="num">+٤٠</div>
-          <div class="label">وجهة بيئية موثّقة</div>
-        </div>
-        <div class="stat-item">
-          <div class="num">٥</div>
-          <div class="label">محميات طبيعية كبرى</div>
-        </div>
-        <div class="stat-item">
-          <div class="num">٢٠٣٠</div>
-          <div class="label">رؤية للاستدامة</div>
-        </div>
+        <div class="stat-item"><div class="num">١٣</div><div class="label">منطقة إدارية</div></div>
+        <div class="stat-item"><div class="num">+٤٠</div><div class="label">وجهة بيئية موثّقة</div></div>
+        <div class="stat-item"><div class="num">٥</div><div class="label">محميات طبيعية كبرى</div></div>
+        <div class="stat-item"><div class="num">٢٠٣٠</div><div class="label">رؤية للاستدامة</div></div>
       </div>
     </div>
   </div>
@@ -861,7 +68,6 @@
     <h2 class="section-title">وجهات <em>منتقاة</em><br>من كل منطقة</h2>
     <p class="section-sub">تصفّح المناطق الجغرافية للمملكة واكتشف الأماكن الأكثر جمالاً وأهمية بيئية في كل واحدة منها.</p>
   </div>
-
   <div class="region-tabs">
     <button class="region-tab active" data-region="all">جميع المناطق</button>
     <button class="region-tab" data-region="south">الجنوب</button>
@@ -870,8 +76,106 @@
     <button class="region-tab" data-region="east">الشرق</button>
     <button class="region-tab" data-region="north">الشمال</button>
   </div>
-
   <div class="places-grid" id="placesGrid"></div>
+</section>
+
+<!-- ===== INTERACTIVE MAP ===== -->
+<section class="map-section" id="map">
+  <div class="section-header">
+    <h2 class="section-title">خريطة <em>تفاعلية</em></h2>
+    <p class="section-sub">اضغط على أي علامة لتعرف أكثر عن الوجهة.</p>
+  </div>
+  <div class="map-filter-row" id="mapFilters">
+    <button class="map-filter-btn active" data-filter="all">الكل</button>
+    <button class="map-filter-btn" data-filter="south">الجنوب</button>
+    <button class="map-filter-btn" data-filter="west">الغرب</button>
+    <button class="map-filter-btn" data-filter="center">الوسط</button>
+    <button class="map-filter-btn" data-filter="east">الشرق</button>
+    <button class="map-filter-btn" data-filter="north">الشمال</button>
+  </div>
+  <div id="mapContainer"></div>
+</section>
+
+<!-- ===== SUSTAINABILITY ===== -->
+<section class="sustainability-section" id="sustainability">
+  <div class="section-header">
+    <h2 class="section-title">الاستدامة <em>البيئية</em></h2>
+    <p class="section-sub">نصائح ومعلومات لجعل رحلتك صديقة للبيئة ومساهمة في الحفاظ على الطبيعة.</p>
+  </div>
+
+  <div class="sustain-grid">
+    <!-- Stats -->
+    <div class="sustain-stats">
+      <div class="sustain-stat">
+        <div class="s-icon">🌳</div>
+        <div class="s-num" data-target="15">0</div>
+        <div class="s-label">محمية طبيعية في المملكة</div>
+      </div>
+      <div class="sustain-stat">
+        <div class="s-icon">🦅</div>
+        <div class="s-num" data-target="499">0</div>
+        <div class="s-label">نوع طيور مسجّل</div>
+      </div>
+      <div class="sustain-stat">
+        <div class="s-icon">🌿</div>
+        <div class="s-num" data-target="2250">0</div>
+        <div class="s-label">نوع نباتي محلّي</div>
+      </div>
+      <div class="sustain-stat">
+        <div class="s-icon">💧</div>
+        <div class="s-num" data-target="30">0</div>
+        <div class="s-label">% من الأراضي محمية بحلول ٢٠٣٠</div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="eco-tips">
+      <div class="eco-tip">
+        <div class="tip-icon">🚯</div>
+        <div>
+          <h4>لا تترك أثراً</h4>
+          <p>احمل كيس لجمع نفاياتك أثناء الرحلة. الطبيعة السعودية تستحق أن نحافظ عليها للأجيال القادمة.</p>
+        </div>
+      </div>
+      <div class="eco-tip">
+        <div class="tip-icon">🚶</div>
+        <div>
+          <h4>المشي أولاً</h4>
+          <p>استخدم المشي في المحميات والمواقع البيئية بدلاً من المركبات. تقلل بصمتك الكربونية وتستمتع أكثر.</p>
+        </div>
+      </div>
+      <div class="eco-tip">
+        <div class="tip-icon">💦</div>
+        <div>
+          <h4>قارورة ماء قابلة لإعادة الاستخدام</h4>
+          <p>تجنب القوارير البلاستيكية ذات الاستخدام الواحد. قارورة واحدة تكفيك طوال الرحلة.</p>
+        </div>
+      </div>
+      <div class="eco-tip">
+        <div class="tip-icon">📷</div>
+        <div>
+          <h4>صوّر فقط</h4>
+          <p>لا تقطف الأزهار أو تأخذ حجارة. خذ الصور واترك المكان كما وجدته.</p>
+        </div>
+      </div>
+      <div class="eco-tip">
+        <div class="tip-icon">🏕️</div>
+        <div>
+          <h4>التخييم المسؤول</h4>
+          <p>استخدم مناطق التخييم المخصصة وتجنب إشعال النار إلا في الأماكن المسموحة.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vision 2030 bar -->
+  <div class="vision-bar">
+    <div>
+      <h3>رؤية المملكة ٢٠٣٠ والاستدامة البيئية</h3>
+      <p>تسعى المملكة لحماية ٣٠٪ من أراضيها كمحميات طبيعية وزراعة ١٠ مليار شجرة ضمن مبادرة "السعودية الخضراء".</p>
+    </div>
+    <div class="vision-badge">٢٠٣٠</div>
+  </div>
 </section>
 
 <!-- ===== FEATURED ===== -->
@@ -899,6 +203,17 @@
   </div>
 </section>
 
+<!-- ===== QUIZ ===== -->
+<section class="quiz-section" id="quiz">
+  <div class="section-header">
+    <h2 class="section-title">وش <em>وجهتك</em> المثالية؟</h2>
+    <p class="section-sub">جاوب على ٥ أسئلة سريعة وبنقترح لك الوجهة اللي تناسبك من بين كل وجهاتنا.</p>
+  </div>
+  <div class="quiz-container" id="quizContent">
+    <!-- Quiz content renders here via JS -->
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer id="about">
   <div class="footer-inner">
@@ -911,65 +226,58 @@
     </div>
     <div>
       <h4>المناطق</h4>
-      <ul>
-        <li>الجنوب</li><li>الغرب</li><li>الوسط</li><li>الشرق والشمال</li>
-      </ul>
+      <ul><li>الجنوب</li><li>الغرب</li><li>الوسط</li><li>الشرق والشمال</li></ul>
     </div>
     <div>
       <h4>المشروع</h4>
-      <ul>
-        <li>عن وِجهات</li><li>الفريق</li><li>المراجع</li>
-      </ul>
+      <ul><li>عن وِجهات</li><li>الفريق</li><li>المراجع</li></ul>
     </div>
     <div>
       <h4>تواصل</h4>
-      <ul>
-        <li>البريد الإلكتروني</li>
-      </ul>
+      <ul><li>البريد الإلكتروني</li><li>تويتر / X</li><li>إنستقرام</li></ul>
     </div>
   </div>
   <div class="footer-bottom">© ٢٠٢٦ وِجهات — مشروع مادة الاستدامة البيئية</div>
 </footer>
 
-
-
-    <!-- CHATBOT FLOATING WIDGET --> 
-
-
-<!-- Toggle button -->
-<button class="chat-toggle" id="chatToggle" aria-label="افتح المساعد السياحي">
+<!-- ===== CHATBOT ===== -->
+<button class="chat-toggle" id="chatToggle">
   <svg class="icon-chat" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
   </svg>
-  <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;">
+  <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none">
     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
   </svg>
 </button>
 
-<!-- Chat window -->
 <div class="chat-window" id="chatWindow">
   <div class="chat-header">
     <div class="chat-header-avatar">🧭</div>
     <div class="chat-header-info">
-      <h4>مساعد وِجهات</h4>
-      <span>متاح الآن</span>
+      <h4>مساعد وِجهات الذكي</h4>
+      <span>مدعوم بـ AI</span>
     </div>
   </div>
-
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">
-      مرحباً! أنا مساعدك السياحي 🌿<br>
-      اسألني عن أماكن البحر، الجبال، الطبيعة، أو التاريخ — وسأقترح لك أجمل الوجهات في المملكة.
+      أهلاً! أنا مساعدك في وِجهات 🧭✨<br><br>
+      أقدر أساعدك في:<br>
+      • اقتراح وجهات تناسب ذوقك<br>
+      • تخطيط رحلة كاملة بالأيام<br>
+      • مقارنة بين وجهتين<br>
+      • نصائح عن أفضل الأوقات والأجواء<br><br>
+      جرّب تضغط على أحد الأزرار تحت أو اكتب سؤالك! 👇
+      <div class="ai-badge">مدعوم بالذكاء الاصطناعي</div>
     </div>
   </div>
-
-  <div class="chat-suggestions">
-    <button class="chip" onclick="sendChip('أريد زيارة البحر')">🌊 البحر</button>
-    <button class="chip" onclick="sendChip('أريد الجبال')">⛰️ الجبال</button>
-    <button class="chip" onclick="sendChip('طبيعة ووادي')">🌿 الطبيعة</button>
-    <button class="chip" onclick="sendChip('أماكن تاريخية وأثرية')">🏛️ التاريخ</button>
+  <div class="chat-suggestions" id="chatSuggestions">
+    <button class="chip" onclick="sendChip('أبغى أزور شواطئ ومويه صافية')">🌊 شواطئ</button>
+    <button class="chip" onclick="sendChip('وش أحلى جبال في السعودية؟')">⛰️ جبال</button>
+    <button class="chip" onclick="sendChip('خطط لي رحلة ٣ أيام في الجنوب')">🗺️ خطط رحلة</button>
+    <button class="chip" onclick="sendChip('قارن بين العُلا وجزر أملج')">⚖️ قارن</button>
+    <button class="chip" onclick="sendChip('أبغى مكان تخييم ونجوم')">🏕️ تخييم</button>
+    <button class="chip" onclick="sendChip('رحلة عائلية مع أطفال')">👨‍👩‍👧‍👦 عائلية</button>
   </div>
-
   <div class="chat-input-row">
     <input class="chat-input" id="chatInput" placeholder="اكتب سؤالك هنا..." />
     <button class="chat-send" onclick="handleChat()" aria-label="إرسال">
@@ -980,169 +288,15 @@
   </div>
 </div>
 
-
-<script>
-  // ====== PLACES DATA ======
-  const places = [
-    { name: "جبل السودة", region: "أبها", regionGroup: "south", tag: "أعلى قمة", desc: "أعلى قمة في المملكة على ارتفاع ٣٠٠٠ متر، مغطاة بالضباب والغابات العرعرية الكثيفة.", season: "صيفاً", temp: "١٢° — ٢٢°", img: "jabal-soudah.jpg" },
-    { name: "أشجار الجاكرندا", region: "الباحة", regionGroup: "south", tag: "ربيعي", desc: "ظاهرة الإزهار البنفسجي الساحرة التي تحوّل المدينة إلى لوحة فنية في الربيع.", season: "مارس — مايو", temp: "١٨° — ٢٥°", img: "jacaranda-baha.jpg" },
-    { name: "غابات رغدان", region: "الباحة", regionGroup: "south", tag: "غابات", desc: "غابة العرعر والزيتون البري التي تمتد على المرتفعات بإطلالات خلابة على السراة.", season: "طوال السنة", temp: "١٥° — ٢٤°", img: "raghadan-forest.jpg" },
-    { name: "جزر فرسان", region: "جازان", regionGroup: "south", tag: "محمية بحرية", desc: "أرخبيل من الجزر الكنزية في البحر الأحمر، موطن للغزال الإدمي وطيور النورس النادرة.", season: "أكتوبر — مارس", temp: "٢٤° — ٣٠°", img: "farasan-islands.jpg" },
-    { name: "وادي لجب", region: "جازان", regionGroup: "south", tag: "وادي", desc: "وادٍ عميق محاط بالمنحدرات الصخرية والمياه الجارية على مدار السنة.", season: "شتاءً وربيعاً", temp: "٢٠° — ٢٨°", img: "wadi-lajab.jpg" },
-    { name: "قرية ذي عين", region: "الباحة", regionGroup: "south", tag: "تراث", desc: "قرية أثرية مبنية على جبل من الرخام الأبيض، محاطة بمزارع الموز والكادي.", season: "طوال السنة", temp: "١٦° — ٢٦°", img: "thee-ain.jpg" },
-    { name: "العُلا", region: "المدينة المنورة", regionGroup: "west", tag: "تراث عالمي", desc: "وادي السحر بمقابره النبطية المنحوتة في الصخر وتشكيلات الحجر الرملي الأسطورية.", season: "أكتوبر — أبريل", temp: "١٨° — ٢٨°", img: "alula.jpg" },
-    { name: "جزر أملج", region: "تبوك", regionGroup: "west", tag: "شواطئ", desc: "مالديف السعودية — مياه فيروزية صافية وشعاب مرجانية فريدة.", season: "أكتوبر — مايو", temp: "٢٢° — ٣٠°", img: "umluj.jpg" },
-    { name: "كورنيش جدة", region: "جدة", regionGroup: "west", tag: "ساحلي", desc: "واجهة بحرية ممتدة على البحر الأحمر مع متاحف مفتوحة وفنون تركيبية.", season: "نوفمبر — مارس", temp: "٢٢° — ٢٨°", img: "jeddah-corniche.jpg" },
-    { name: "حافة العالم", region: "الرياض", regionGroup: "center", tag: "مغامرة", desc: "منحدر صخري درامي في جبال طويق يطلّ على وادٍ يمتد لما لا نهاية.", season: "أكتوبر — أبريل", temp: "١٥° — ٢٥°", img: "edge-of-world.jpg" },
-    { name: "وادي حنيفة", region: "الرياض", regionGroup: "center", tag: "بيئي", desc: "مشروع إعادة تأهيل بيئي حوّل الوادي إلى متنزه طبيعي مع مياه جارية وأشجار النخيل.", season: "طوال السنة", temp: "١٨° — ٣٠°", img: "wadi-hanifah.jpg" },
-    { name: "واحة الأحساء", region: "الأحساء", regionGroup: "east", tag: "اليونسكو", desc: "أكبر واحة نخيل في العالم، مدرجة في قائمة التراث العالمي لليونسكو.", season: "أكتوبر — مارس", temp: "٢٠° — ٢٨°", img: "alahsa-oasis.jpg" },
-    { name: "جبل القارة", region: "الأحساء", regionGroup: "east", tag: "كهوف", desc: "تكوين جبلي فريد بكهوفه الباردة في الصيف والدافئة في الشتاء.", season: "طوال السنة", temp: "١٨° — ٣٢°", img: "jabal-qara.jpg" },
-    { name: "محمية الطبيق", region: "تبوك", regionGroup: "north", tag: "محمية ملكية", desc: "محمية صحراوية شاسعة موطن للنمر العربي والوعل النوبي.", season: "نوفمبر — مارس", temp: "١٠° — ٢٢°", img: "tubaiq-reserve.jpg" },
-    { name: "جبال اللوز", region: "تبوك", regionGroup: "north", tag: "ثلوج", desc: "الجبال الوحيدة في المملكة التي تكسوها الثلوج شتاءً، بإطلالات بانورامية مذهلة.", season: "ديسمبر — فبراير", temp: "-٢° — ١٠°", img: "jabal-lawz.jpg" },
-  ];
-
-  // ====== RENDER CARDS ======
-  const grid = document.getElementById('placesGrid');
-  const tabs = document.querySelectorAll('.region-tab');
-
-  function render(filter = 'all') {
-    grid.innerHTML = '';
-    const filtered = filter === 'all' ? places : places.filter(p => p.regionGroup === filter);
-    filtered.forEach((p, i) => {
-      const card = document.createElement('div');
-      card.className = 'place-card';
-      card.style.animationDelay = `${i * 0.08}s`;
-      card.innerHTML = `
-        <div class="place-image">
-          <span class="place-tag">${p.tag}</span>
-          <img src="images/${p.img}" alt="${p.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="img-placeholder" style="display:none;">ضع صورة باسم:<br><strong>${p.img}</strong></div>
-        </div>
-        <div class="place-info">
-          <div class="region-label">${p.region}</div>
-          <h3>${p.name}</h3>
-          <p>${p.desc}</p>
-          <div class="place-meta">
-            <span>📅 ${p.season}</span>
-            <span>🌡 ${p.temp}</span>
-          </div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  tabs.forEach(t => {
-    t.addEventListener('click', () => {
-      tabs.forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-      render(t.dataset.region);
-    });
-  });
-
-  render();
-
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-      nav.style.padding = '0.7rem 3rem';
-      nav.style.background = 'rgba(250, 246, 238, 0.95)';
-    } else {
-      nav.style.padding = '1.2rem 3rem';
-      nav.style.background = 'rgba(250, 246, 238, 0.85)';
-    }
-  });
-
-
-
-  // CHATBOT LOGIC 
-
-  const chatToggle = document.getElementById('chatToggle');
-  const chatWindow = document.getElementById('chatWindow');
-  const chatMessages = document.getElementById('chatMessages');
-  const chatInput = document.getElementById('chatInput');
-
-  // Toggle open/close
-  chatToggle.addEventListener('click', () => {
-    chatToggle.classList.toggle('open');
-    chatWindow.classList.toggle('open');
-    if (chatWindow.classList.contains('open')) {
-      chatInput.focus();
-    }
-  });
-
-  // Enter key to send
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleChat();
-  });
-
-  // Suggestion chips
-  function sendChip(text) {
-    chatInput.value = text;
-    handleChat();
-  }
-
-  // Add a message bubble
-  function addMessage(text, type) {
-    const msg = document.createElement('div');
-    msg.className = `chat-msg ${type}`;
-    msg.innerHTML = text;
-    chatMessages.appendChild(msg);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-
-  function classify(text) {
-    if (text.includes("بحر")) return "1";
-    else if (text.includes("جبل") || text.includes("جبال")) return "2";
-    else if (text.includes("طبيعة") || text.includes("وادي")) return "3";
-    else if (text.includes("تاريخ") || text.includes("اثري") || text.includes("أثري")) return "4";
-    else return "0";
-  }
-
-
-
-  const chatData = {
-    "1": ["جزر فرسان", "جزر أملج", "كورنيش جدة"],
-    "2": ["جبل السودة", "حافة العالم", "جبال اللوز"],
-    "3": ["غابات رغدان", "وادي لجب", "وادي حنيفة"],
-    "4": ["العُلا", "واحة الأحساء", "قرية ذي عين"]
-  };
-
-
-function getBotReply(input) {
-  const choice = classify(input);
-
-  if (choice === "0") {
-    return "عذرًا، لم أفهم طلبك بشكل واضح 🤔<br>جرّب كلمات مثل: <b>بحر، جبل، طبيعة، تاريخ</b>.";
-  }
-
-  const categoryNames = {
-    "1": "البحر 🌊",
-    "2": "الجبال ⛰️",
-    "3": "الطبيعة 🌿",
-    "4": "التاريخ 🏛️"
-  };
-
-  const list = chatData[choice].map(p => `• ${p}`).join("<br>");
-
-  return `بكل سرور! إليك أجمل وجهات <b>${categoryNames[choice]}</b> في المملكة:<br><br>${list}`;
-}
-
-  function handleChat() {
-    const input = chatInput.value.trim();
-    if (!input) return;
-
-    addMessage(input, 'user');
-    chatInput.value = '';
-
-    // Small delay for natural feel
-    setTimeout(() => {
-      addMessage(getBotReply(input), 'bot');
-    }, 400);
-  }
-</script>
+<!-- ===== SCRIPTS ===== -->
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- App Scripts (order matters: data first, then modules) -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="map.js"></script>
+<script src="chatbot.js"></script>
+<script src="quiz.js"></script>
 
 </body>
 </html>

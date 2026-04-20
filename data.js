@@ -1,7 +1,7 @@
 // ====== PLACES DATA ======
 const places = [
   { name: "جبل السودة", region: "أبها", regionGroup: "south", tag: "أعلى قمة", desc: "أعلى قمة في المملكة على ارتفاع ٣٠٠٠ متر، مغطاة بالضباب والغابات العرعرية الكثيفة.", season: "صيفاً", temp: "١٢° — ٢٢°", img: "jabal-soudah.jpg", lat: 18.25, lng: 42.37 },
-  { name: "أشجار الجاكرندا", region: "الباحة", regionGroup: "south", tag: "ربيعي", desc: "ظاهرة الإزهار البنفسجي الساحرة التي تحوّل المدينة إلى لوحة فنية في الربيع.", season: "مارس — مايو", temp: "١٨° — ٢٥°", img: "jacaranda-baha.jpg", lat: 20.0, lng: 41.47 },
+  { name: "أشجار الجاكرندا", region: "أبها", regionGroup: "south", tag: "ربيعي", desc: "ظاهرة الإزهار البنفسجي الساحرة التي تحوّل المدينة إلى لوحة فنية في الربيع.", season: "مارس — مايو", temp: "١٨° — ٢٥°", img: "jacaranda-baha.jpg", lat: 20.0, lng: 41.47 },
   { name: "غابات رغدان", region: "الباحة", regionGroup: "south", tag: "غابات", desc: "غابة العرعر والزيتون البري التي تمتد على المرتفعات بإطلالات خلابة على السراة.", season: "طوال السنة", temp: "١٥° — ٢٤°", img: "raghadan-forest.jpg", lat: 20.01, lng: 41.46 },
   { name: "جزر فرسان", region: "جازان", regionGroup: "south", tag: "محمية بحرية", desc: "أرخبيل من الجزر الكنزية في البحر الأحمر، موطن للغزال الإدمي وطيور النورس النادرة.", season: "أكتوبر — مارس", temp: "٢٤° — ٣٠°", img: "farasan-islands.jpg", lat: 16.7, lng: 42.12 },
   { name: "وادي لجب", region: "جازان", regionGroup: "south", tag: "وادي", desc: "وادٍ عميق محاط بالمنحدرات الصخرية والمياه الجارية على مدار السنة.", season: "شتاءً وربيعاً", temp: "٢٠° — ٢٨°", img: "wadi-lajab.jpg", lat: 17.62, lng: 43.0 },
